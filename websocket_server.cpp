@@ -213,8 +213,8 @@ int main()
     thread server_thread([&server]()
                          { server.run(9002); });
 
-    string clientId = "P6TGQTrl";
-    string clientSecret = "-_rbnZQOEqNpTuUqRbpY4uOnCKmmwvtYuqT3XYfJ4aA";
+    string clientId = "18zn8-yt";
+    string clientSecret = "7btc-iLm9BBUUdW1o3tTDlyTRP-2I22VPybTIJZj_j4";
     RestClient client(clientId, clientSecret, "https://test.deribit.com");
 
     while (true)
