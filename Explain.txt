@@ -1,0 +1,63 @@
+ +----------------+         +--------------------+         +-----------------------+
+ |                |         |                    |         |                       |
+ |    Client A    |         |        Server      |         |        Client B       |
+ | (Making 100K   |         | (Processing each   |         | (Making 100K requests)|
+ |    Requests)   |         |  request individually)       |                       |
+ |                |         |                    |         |                       |
+ +----------------+         +--------------------+         +-----------------------+
+        |                             |                             |
+        |   +-------------------------+                             |
+        |   |                         |                             |
+        |   |     HTTP Request 1      |                             |
+        |   +-------------------------+                             |
+        |   |                         |                             |
+        |   |     HTTP Request 2      |                             |
+        |   +-------------------------+                             |                                                          Server (where we will make the request)
+        |   |                         |                             |                                                                           |
+        |   |     HTTP Request 3      |                             |                                                             Client ( Making 100K requests)
+        |   +-------------------------+                             |
+        |   |                         |                             |
+        |   |          ...            |                             |
+        |   |                         |                             |
+        |   |     HTTP Request N      |                             |
+        |   +-------------------------+                             |
+        |                             |                             |
+        +----------------------------->+                            |
+                                      |                             |
+                                      |    Processing Requests      |
+                                      |     (Latency Introduced)    |
+                                      +-----------------------------+
+
+
+
+                                                                                After Implementing the Web Socket !!
+  
+
+
+ +----------------+         +--------------------+         +-----------------------+
+ |                |         |                    |         |                       |
+ |    Client A    |         |        Server      |         |        Client B       |
+ |  (Establishes  |         | (Maintains a       |         | (Establishes a WebSocket)
+ |  WebSocket     |         |   Persistent       |         |     WebSocket         |
+ |   Connection)  |         |    WebSocket       |         |        Connection)    |
+ |                |         |    Connection)     |         |                       |
+ +----------------+         +--------------------+         +-----------------------+
+        |                             |                             |
+        |   +-------------------------+                             |
+        |   |                         |                             |
+        |   |      WebSocket Open     |                             |
+        |   +-------------------------+                             |                                                           Server (where we will make the request)
+        |   |                         |                             |                                                                              |
+        |   |      Data Transmission  | <------------------------>  |                                                              Web Socket(1 Broadcasting the Request)
+        |   |     (Low-Latency)       |                             |                                                                              |
+        |   |                         |                             |                                                                 Client ( Making 100K requests)
+        |   |        ...              |                             |
+        |   |                         |                             |
+        |   |      Data Transmission   |                            |
+        |   +-------------------------+                             |
+        |                             |                             |
+        +----------------------------->+                            |
+                                      |                             |
+                                      |   Real-Time Updates &       |
+                                      |   Efficient Data Handling   |
+                                      +-----------------------------+
